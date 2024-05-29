@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Weatehr App</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Index</h1>
+        <div class="card">
+            <div class="search">
+                <input type="text" class="searchTerm" placeholder="City Name" spellcheck="false">
+                <button> <img src="images/search.png"></button>
+            </div>
+            <div class="weather">
+                <img src="images/rain.png" class="weatehr-icon">
+                <h1 class="temp">22°C</h1>
+                <h2 class="city">Swansea</h2>
+                <div class="details">
+                    <div class="col">
+                        <img src="images/humidity.png">
+                        <div>
+                            <p class="humidity">50%</p>
+                            <p>Humidity</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <img src="images/wind.png">
+                        <div>
+                            <p class="wind">15mph</p>
+                            <p>Wind Speed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            const apiKey = "1bb2ed4bdc86e1cc08a0186d4b27eac9";
+            const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=swansea";
+
+            async function checkWeather() {
+                const response = await fetch(apiUrl + "&appid=" + apiKey);
+                const data = await response.json();
+                console.log(data);
+                // Innerhtml get element, textContent just gets the text
+                document.querySelector(".temp").innerHTML = data.main.temp + "°C";
+                document.querySelector(".city").textContent = data.name;
+                document.querySelector(".humidity").textContent = data.main.humidity + "%";
+                document.querySelector(".wind").textContent = data.wind.speed + "mph";
+            }
+
+            checkWeather();
+        </script>
+    </body>
+</html>
